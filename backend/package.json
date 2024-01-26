@@ -4,7 +4,8 @@
   "description": "WikiTrip.com - Clone of Booking.com",
   "main": "./src/index.ts",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "e2e": "cross-env DOTENV_CONFIG_ENV_PATH=.env.e2e nodemon"
   },
   "author": "Vicky Kumar",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
