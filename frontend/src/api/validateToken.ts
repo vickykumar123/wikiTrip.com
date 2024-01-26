@@ -9,7 +9,7 @@ export async function validateToken() {
     throw new Error("Token invalid");
   }
 
-  const responseBody = await response.json();
+  // const responseBody = await response.json();
 
-  return responseBody;
+  return response.json();
 }

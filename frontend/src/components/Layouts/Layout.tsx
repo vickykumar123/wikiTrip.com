@@ -5,7 +5,7 @@ import Hero from "../Hero";
 
 export default function Layout() {
   const pathName = useLocation();
-  console.log(pathName);
+
   return (
     <div className="flex flex-col min-h-screen ">
       <Header />

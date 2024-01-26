@@ -4,6 +4,7 @@ import {logoutUser} from "../../redux/userSlice";
 
 export default function LoggedIn({avatar}: {avatar: string}) {
   const dispatch = useAppDispatch();
+
   return (
     <>
       <span className="flex items-center justify-center gap-3">

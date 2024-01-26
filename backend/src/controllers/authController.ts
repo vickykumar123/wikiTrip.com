@@ -4,6 +4,14 @@ import {appError} from "../helpers/appError";
 import bcrypt from "bcryptjs";
 import {createJWTandCookie} from "../helpers/JWTandCookie";
 
+declare global {
+  namespace Express {
+    interface Request {
+      userId: string;
+    }
+  }
+}
+
 //Sign-up
 export async function createUser(
   req: Request,
@@ -81,3 +89,60 @@ export function validateToken(req: Request, res: Response) {
     userId: req.userId,
   });
 }
+
+export function logout(req: Request, res: Response) {
+  res.cookie("token", "", {
+    expires: new Date(0),
+  });
+  res.status(200).json({
+    status: "success",
+    message: "Logout successfully",
+  });
+}
+
+export const google = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await User.findOne({email: req.body.email});
+    if (user) {
+      //if user exist signIn directly
+
+      createJWTandCookie(res, user._id);
+      user.password = undefined;
+      res.status(200).json({
+        status: "success",
+        user,
+      });
+    } else {
+      //if user donot exist generate the password and create the user in database
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashedPassword = await bcrypt.hash(generatedPassword, 12);
+      const generatedUsername = req.body.name.split(" ");
+      const firstName = generatedUsername[0];
+      const lastName = generatedUsername[1];
+      const newUser = new User({
+        firstName: firstName,
+        lastName: lastName,
+        email: req.body.email,
+        password: hashedPassword,
+        passwordConfirm: hashedPassword,
+        avatar: req.body.avatar,
+      });
+      console.log(newUser);
+      await newUser.save();
+      createJWTandCookie(res, newUser._id);
+      newUser.password = undefined;
+      res.status(200).json({
+        status: "success",
+        user: newUser,
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
