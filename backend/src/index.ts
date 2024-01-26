@@ -8,6 +8,8 @@ import userRouter from "./routes/userRoute";
 import authRouter from "./routes/authRoute";
 import path from "path";
 
+// const __dirname = path.resolve();
+
 mongoose
   .connect(process.env.MONGO_URL!)
   .then(() => console.log("Connected to the Database successfully"))
@@ -27,6 +29,10 @@ app.listen(PORT, () => {
 
 //For render deployment
 app.use(express.static(path.join(process.cwd(), "../frontend/dist")));
+//This will solve manual refresh issue
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
+});
 
 //Routes
 app.use("/api/v1/auth", authRouter);
