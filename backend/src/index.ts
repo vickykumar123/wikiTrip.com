@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 import userRouter from "./routes/userRoute";
 import authRouter from "./routes/authRoute";
+import path from "path";
 
 mongoose
   .connect(process.env.MONGO_URL!)
@@ -23,6 +24,9 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server is running on localhost:3000");
 });
+
+//For render deployment
+app.use(express.static(path.join(process.cwd(), "../frontend/dist")));
 
 //Routes
 app.use("/api/v1/auth", authRouter);
