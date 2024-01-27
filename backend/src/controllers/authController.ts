@@ -84,12 +84,6 @@ export async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export function validateToken(req: Request, res: Response) {
-  res.status(200).json({
-    userId: req.userId,
-  });
-}
-
 export function logout(req: Request, res: Response) {
   res.cookie("token", "", {
     expires: new Date(0),

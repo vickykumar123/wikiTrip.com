@@ -15,12 +15,15 @@ declare global {
 
 export function uploadSingle(req: Request, res: Response) {
   // req.file contains a file object
-  res.status(200).json({status: "success", location: req.file!.location});
+  res.status(200).json({status: "success", image: req.file!.location});
 }
 
 export function uploadMultiple(req: Request, res: Response) {
+  const imageURL = req.files as Express.Multer.File[];
+  const images = imageURL.map((image) => image.location);
+
   // req.files contains an array of file object
-  res.status(200).json({status: "success", message: req.files});
+  res.status(200).json({status: "success", images});
 }
 
 export async function uploadSingleV2(

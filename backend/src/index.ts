@@ -8,6 +8,7 @@ import userRouter from "./routes/userRoute";
 import authRouter from "./routes/authRoute";
 import path from "path";
 import uploadRouter from "./routes/uploadRoute";
+import hotelRouter from "./routes/hotelRoute";
 
 // const __dirname = path.resolve();
 
@@ -38,6 +39,7 @@ app.get("*", (req: Request, res: Response) => {
 //Routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/hotel", hotelRouter);
 app.use("/api/v1/upload", uploadRouter);
 
 //Error
