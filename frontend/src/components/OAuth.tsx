@@ -34,7 +34,7 @@ export default function OAuth({disabled}: {disabled: boolean}) {
       const user = data.user;
       if (data.status === "success") {
         const userObj = {
-          name: user.firstName + " " + user.lastName,
+          name: user.fullName,
           email: user.email,
           avatar: user.avatar,
         };

@@ -4,11 +4,11 @@ interface User {
     name: string | null;
     email: string | null;
     avatar: string | null;
-  };
+  } | null;
 }
 
-const initialState: User = {
-  user: {name: null, email: null, avatar: null},
+const initialState: User | null = {
+  user: null,
 };
 
 export const userSlice = createSlice({
@@ -19,9 +19,7 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     logoutUser: (state) => {
-      state.user.name = null;
-      state.user.email = null;
-      state.user.avatar = null;
+      state.user = null;
     },
   },
 });

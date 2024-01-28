@@ -30,7 +30,7 @@ export default function SignIn() {
       showToast({message: "Loggedin Successfully!", type: "SUCCESS"});
       const user = data.user;
       const userObj = {
-        name: user.firstName + " " + user.lastName,
+        name: user.fullName,
         email: user.email,
         avatar: user.avatar,
       };
