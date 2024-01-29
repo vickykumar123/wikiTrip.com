@@ -1,19 +1,39 @@
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useAppDispatch} from "../../redux/hooks";
 import {logoutUser} from "../../redux/userSlice";
 
+const NavLinks = [
+  {
+    link: "/my-booking",
+    label: "My Bookings",
+  },
+  {
+    link: "/my-hotels",
+    label: "My Hotels",
+  },
+];
+
 export default function LoggedIn({avatar}: {avatar: string}) {
   const dispatch = useAppDispatch();
+  const {pathname} = useLocation();
+  const convertedPath = pathname.split("-").join(" ").slice(1);
 
   return (
     <>
       <span className="flex items-center justify-center gap-3">
-        <Link to="/my-booking" className="text-white font-sans font-semibold">
-          My Bookings
-        </Link>
-        <Link to="/my-hotels" className="text-white font-sans font-semibold">
-          My Hotels
-        </Link>
+        {NavLinks.map((link) => (
+          <Link
+            key={link.label}
+            to={link.link}
+            className={`text-white font-sans font-semibold ${
+              convertedPath === link.label.toLowerCase()
+                ? "text-white"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            {link.label}
+          </Link>
+        ))}
         <Link to="/profile">
           <img
             src={avatar}

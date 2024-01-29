@@ -1,7 +1,7 @@
 import express from "express";
 import {upload} from "../helpers/upload";
 import {protect} from "../middleware/middleware";
-import {createHotel} from "../controllers/hotelController";
+import {createHotel, myHotel} from "../controllers/hotelController";
 
 const hotelRouter = express.Router();
 
@@ -11,5 +11,6 @@ hotelRouter.post(
   upload.array("images", 6),
   createHotel
 );
+hotelRouter.get("/my-hotel", protect, myHotel);
 
 export default hotelRouter;

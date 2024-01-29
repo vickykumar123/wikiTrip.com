@@ -26,3 +26,19 @@ export async function createHotel(
     next(err);
   }
 }
+
+export async function myHotel(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (!req.user) {
+      return next(appError(400, "Please login to access your listing"));
+    }
+    const myHotel = await Hotel.find({user: req.user});
+    res.status(200).json({
+      status: "success",
+      results: myHotel.length,
+      myHotel,
+    });
+  } catch (err) {
+    next(err);
+  }
+}

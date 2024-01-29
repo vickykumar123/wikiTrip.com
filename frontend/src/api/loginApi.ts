@@ -12,7 +12,6 @@ export async function loginApi(formData: SignInInputs) {
   });
 
   const responseBody = await response.json();
-  console.log(responseBody);
   if (!response.ok && responseBody.status === "failed") {
     throw new Error(responseBody.message);
   }

@@ -79,6 +79,18 @@ export default function HotelDetailsSection() {
           <span className="text-red-500">{errors.pricePerNight.message}</span>
         )}
       </label>
+      <label className="text-gray-700 text-sm font-bold max-w-[50%]">
+        Beds
+        <input
+          type="number"
+          min={1}
+          className="border rounded w-full py-1 px-2 font-normal focus:outline-none focus:ring focus:ring-blue-300 focus:ring-offset-1 bg-blue-50"
+          {...register("bed", {required: "This field is required"})}
+        />
+        {errors.bed && (
+          <span className="text-red-500">{errors.bed.message}</span>
+        )}
+      </label>
 
       <label className="text-gray-700 text-sm font-bold max-w-[50%]">
         Star Rating

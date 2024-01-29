@@ -4,6 +4,7 @@ import HotelTypes from "./HotelTypes";
 import HotelFacilites from "./HotelFacilites";
 import HotelGuests from "./HotelGuests";
 import HotelImage from "./HotelImage";
+import HotelBreakfast from "./HotelBreakfast";
 
 export type HotelFormData = {
   hotelName: string;
@@ -18,6 +19,8 @@ export type HotelFormData = {
   imageUrls: string[];
   adultCount: number;
   childCount: number;
+  bed: number;
+  breakfast: string;
 };
 
 interface Props {
@@ -37,9 +40,11 @@ export default function ManageHotelForm({onSave, isLoading}: Props) {
     formData.append("description", hotelInput.description);
     formData.append("type", hotelInput.type);
     formData.append("pricePerNight", hotelInput.pricePerNight.toString());
+    formData.append("bed", hotelInput.bed.toString());
     formData.append("starRating", hotelInput.starRating.toString());
     formData.append("adultCount", hotelInput.adultCount.toString());
     formData.append("childCount", hotelInput.childCount.toString());
+    formData.append("breakfast", hotelInput.breakfast);
 
     hotelInput.facilities.forEach((facility, index) => {
       formData.append(`facilities[${index}]`, facility);
@@ -56,6 +61,7 @@ export default function ManageHotelForm({onSave, isLoading}: Props) {
       <form className="flex flex-col gap-10" onSubmit={onSubmit}>
         <HotelDetailsSection />
         <HotelTypes />
+        <HotelBreakfast />
         <HotelFacilites />
         <HotelGuests />
         <HotelImage />

@@ -1,3 +1,4 @@
+import {HotelType} from "backend/src/model/hotelModel";
 import {API_URL} from "../contants/contant";
 
 export async function addMyHotel(hotelFormData: FormData) {
@@ -12,4 +13,16 @@ export async function addMyHotel(hotelFormData: FormData) {
     throw new Error("Unable to create the hotel");
   }
   return responseBody;
+}
+
+export async function myHotel(): Promise<HotelType[]> {
+  const response = await fetch(`${API_URL}/api/v1/hotel/my-hotel`, {
+    credentials: "include",
+  });
+  const responseBody = await response.json();
+  if (!response.ok) {
+    throw new Error(responseBody.message);
+  }
+
+  return responseBody.myHotel;
 }

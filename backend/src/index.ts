@@ -31,16 +31,18 @@ app.listen(PORT, () => {
 
 //For render deployment
 app.use(express.static(path.join(process.cwd(), "../frontend/dist")));
-//This will solve manual refresh issue
-app.get("*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
-});
 
 //Routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/hotel", hotelRouter);
 app.use("/api/v1/upload", uploadRouter);
+
+//This should be after all api routes
+//This will solve manual refresh issue
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
+});
 
 //Error
 interface Error {

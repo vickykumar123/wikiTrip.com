@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateHotel from "./pages/CreateHotel";
+import MyHotel from "./pages/MyHotel";
 
 function App() {
   return (
@@ -18,7 +19,11 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route element={<ProtectedRoute />}>
-                <Route path="/create-hotel" element={<CreateHotel />} />
+                <Route path="/my-hotels" element={<MyHotel />} />
+                <Route
+                  path="/my-hotels/create-hotel"
+                  element={<CreateHotel />}
+                />
               </Route>
             </Route>
           </Routes>
