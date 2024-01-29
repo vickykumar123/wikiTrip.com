@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {appError} from "../helpers/appError";
-import Hotel, {HotelType} from "../model/hotelModel";
+import Hotel from "../model/hotelModel";
+import {HotelType} from "../shared/model.types";
 
 export async function createHotel(
   req: Request,

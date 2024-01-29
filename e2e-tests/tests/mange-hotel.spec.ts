@@ -16,7 +16,7 @@ test.beforeEach(async ({page}) => {
 
 test("should allow user to add a hotel", async ({page}) => {
   const randomName = `Test-Hotel ${Date.now()}`;
-  await page.goto(`${URL}create-hotel`);
+  await page.goto(`${URL}my-hotels/create-hotel`);
 
   await page.locator('[name="hotelName"]').fill(randomName);
   await page.locator('[name="city"]').fill("Test City");
@@ -25,9 +25,11 @@ test("should allow user to add a hotel", async ({page}) => {
     .locator('[name="description"]')
     .fill("This is a description for the Test Hotel");
   await page.locator('[name="pricePerNight"]').fill("100");
+  await page.locator('[name="bed"]').fill("3");
   await page.selectOption('select[name="starRating"]', "3");
 
   await page.getByText("Budget").click();
+  await page.getByText("Yes").click();
 
   await page.getByLabel("Free Wifi").check();
   await page.getByLabel("Parking").check();

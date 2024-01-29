@@ -1,17 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
-
-export interface UserType {
-  _id: string;
-  email: string;
-  password: string | undefined;
-  passwordConfirm: string | undefined;
-  firstName: string;
-  avatar: string;
-  lastName: string;
-  role?: string;
-}
+import {UserType} from "../shared/model.types";
 
 const userSchema = new mongoose.Schema(
   {

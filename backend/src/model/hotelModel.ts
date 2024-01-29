@@ -1,24 +1,5 @@
 import mongoose, {Document, PopulatedDoc} from "mongoose";
-import {UserType} from "./userModel";
-
-export type HotelType = {
-  _id: string;
-  user: PopulatedDoc<UserType & Document>;
-  hotelName: string;
-  city: string;
-  country: string;
-  description: string;
-  bed: number;
-  breakfast: string;
-  type: string;
-  adultCount: number;
-  childCount: number;
-  facilities: string[];
-  pricePerNight: number;
-  starRating: number;
-  imageUrls: string[];
-  lastUpdated: Date;
-};
+import {HotelType} from "../shared/model.types";
 
 const hotelSchema = new mongoose.Schema<HotelType>(
   {

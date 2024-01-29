@@ -1,4 +1,4 @@
-import {HotelType} from "backend/src/model/hotelModel";
+import {HotelType} from "backend/src/shared/model.types";
 import {API_URL} from "../contants/contant";
 
 export async function addMyHotel(hotelFormData: FormData) {
