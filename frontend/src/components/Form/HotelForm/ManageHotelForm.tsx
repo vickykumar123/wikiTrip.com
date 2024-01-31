@@ -36,6 +36,7 @@ export default function ManageHotelForm({onSave, isLoading, hotel}: Props) {
   const navigate = useNavigate();
   const formMethods = useForm<HotelFormData>();
   const {handleSubmit, reset} = formMethods;
+  const editPage = hotel ? true : false;
 
   useEffect(() => {
     reset(hotel);
@@ -43,6 +44,9 @@ export default function ManageHotelForm({onSave, isLoading, hotel}: Props) {
 
   const onSubmit = handleSubmit((hotelInput: HotelFormData) => {
     const formData = new FormData();
+    if (hotel) {
+      formData.append("hotelId", hotel._id);
+    }
     formData.append("hotelName", hotelInput.hotelName);
     formData.append("city", hotelInput.city);
     formData.append("country", hotelInput.country);
@@ -59,11 +63,18 @@ export default function ManageHotelForm({onSave, isLoading, hotel}: Props) {
       formData.append(`facilities[${index}]`, facility);
     });
 
+    //This override the existing image in backend
+    if (hotelInput.imageUrls) {
+      hotelInput.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url);
+      });
+    }
+
     Array.from(hotelInput.images).forEach((image) => {
       formData.append(`images`, image);
     });
     onSave(formData);
-    reset();
+    // reset();
   });
 
   return (
@@ -75,7 +86,7 @@ export default function ManageHotelForm({onSave, isLoading, hotel}: Props) {
         &#x25c0; Back to My Hotels
       </p>
       <form className="flex flex-col gap-10" onSubmit={onSubmit}>
-        <HotelDetailsSection />
+        <HotelDetailsSection editPage={editPage} />
         <HotelTypes />
         <HotelBreakfast />
         <HotelFacilites />

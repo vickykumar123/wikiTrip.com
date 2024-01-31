@@ -2,7 +2,7 @@ import {useFormContext} from "react-hook-form";
 import {HotelFormData} from "./ManageHotelForm";
 import {countryOptions} from "../../../contants/country";
 
-export default function HotelDetailsSection() {
+export default function HotelDetailsSection({editPage}: {editPage: boolean}) {
   const {
     register,
     formState: {errors},
@@ -10,7 +10,9 @@ export default function HotelDetailsSection() {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl sm:text-3xl font-bold mb-3">
-        List your hotel at wikiTrip.com
+        {editPage
+          ? "Update your hotel details"
+          : "List your hotel at wikiTrip.com"}
       </h1>
       <label className="text-gray-700 text-sm font-bold flex-1">
         Hotel Name

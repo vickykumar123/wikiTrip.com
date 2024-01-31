@@ -9,7 +9,7 @@ export function createJWTandCookie(res: Response, id: string) {
   res.cookie("token", token, {
     expires: new Date(Date.now() + process.env.COOKIE_EXPIRE!),
     httpOnly: true,
-    maxAge: parseInt(process.env.COOKIE_EXPIRE!, 10), //90 day in ms
+    maxAge: 10 * 86400000, //10 day in ms
   });
   return token;
 }

@@ -25,7 +25,7 @@ export default function LoggedIn({avatar}: {avatar: string}) {
           <Link
             key={link.label}
             to={link.link}
-            className={`text-white font-sans font-semibold ${
+            className={`font-sans font-semibold ${
               convertedPath === link.label.toLowerCase()
                 ? "text-white"
                 : "text-gray-400 hover:text-white"

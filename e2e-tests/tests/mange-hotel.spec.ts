@@ -45,3 +45,19 @@ test("should allow user to add a hotel", async ({page}) => {
   await page.getByRole("button", {name: "Save"}).click();
   await expect(page.getByText("Hotel Created Successfully")).toBeVisible();
 });
+
+test("should edit hotel", async ({page}) => {
+  await page.goto(`${URL}my-hotels`);
+
+  await page.getByRole("link", {name: "View Details"}).first().click();
+
+  await page.locator('[name="hotelName"]').fill("Test Updated");
+  await page.getByRole("button", {name: "Save"}).click();
+  await expect(page.getByText("Hotel Saved!")).toBeVisible();
+
+  await page.reload();
+
+  await expect(page.locator('[name="hotelName"]')).toHaveValue("Test Updated");
+  await page.locator('[name="name"]').fill("Test 3");
+  await page.getByRole("button", {name: "Save"}).click();
+});
