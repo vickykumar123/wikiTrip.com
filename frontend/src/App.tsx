@@ -7,6 +7,7 @@ import SignIn from "./pages/SignIn";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateHotel from "./pages/CreateHotel";
 import MyHotel from "./pages/MyHotel";
+import EditMyHotel from "./pages/EditMyHotel";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
                 <Route
                   path="/my-hotels/create-hotel"
                   element={<CreateHotel />}
+                />
+                <Route
+                  path="/my-hotels/edit-hotel/:hotelId"
+                  element={<EditMyHotel />}
                 />
               </Route>
             </Route>

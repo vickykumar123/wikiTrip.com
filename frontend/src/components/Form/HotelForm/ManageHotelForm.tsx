@@ -5,6 +5,9 @@ import HotelFacilites from "./HotelFacilites";
 import HotelGuests from "./HotelGuests";
 import HotelImage from "./HotelImage";
 import HotelBreakfast from "./HotelBreakfast";
+import {HotelType} from "backend/src/shared/model.types";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
 export type HotelFormData = {
   hotelName: string;
@@ -24,13 +27,19 @@ export type HotelFormData = {
 };
 
 interface Props {
+  hotel?: HotelType;
   onSave: (hotelFormData: FormData) => void;
   isLoading: boolean;
 }
 
-export default function ManageHotelForm({onSave, isLoading}: Props) {
+export default function ManageHotelForm({onSave, isLoading, hotel}: Props) {
+  const navigate = useNavigate();
   const formMethods = useForm<HotelFormData>();
-  const {handleSubmit} = formMethods;
+  const {handleSubmit, reset} = formMethods;
+
+  useEffect(() => {
+    reset(hotel);
+  }, [hotel, reset]);
 
   const onSubmit = handleSubmit((hotelInput: HotelFormData) => {
     const formData = new FormData();
@@ -54,10 +63,17 @@ export default function ManageHotelForm({onSave, isLoading}: Props) {
       formData.append(`images`, image);
     });
     onSave(formData);
+    reset();
   });
 
   return (
     <FormProvider {...formMethods}>
+      <p
+        onClick={() => navigate(-1)}
+        className="hover:underline cursor-pointer mb-3 text-blue-500 font-semibold"
+      >
+        &#x25c0; Back to My Hotels
+      </p>
       <form className="flex flex-col gap-10" onSubmit={onSubmit}>
         <HotelDetailsSection />
         <HotelTypes />

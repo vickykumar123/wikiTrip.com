@@ -43,3 +43,20 @@ export async function myHotel(req: Request, res: Response, next: NextFunction) {
     next(err);
   }
 }
+
+export async function hotelById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const hotelId = req.params.hotelId.toString();
+  try {
+    const hotel = await Hotel.findOne({_id: hotelId, user: req.user});
+    res.status(200).json({
+      status: "success",
+      hotel,
+    });
+  } catch (err) {
+    next(err);
+  }
+}

@@ -26,3 +26,16 @@ export async function myHotel(): Promise<HotelType[]> {
 
   return responseBody.myHotel;
 }
+
+export async function hotelById(hotelId: string): Promise<HotelType> {
+  const response = await fetch(`${API_URL}/api/v1/hotel/${hotelId}`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok && responseBody.status === "failed") {
+    throw new Error(responseBody.message);
+  }
+
+  return responseBody.hotel;
+}

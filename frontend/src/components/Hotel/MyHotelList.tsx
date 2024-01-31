@@ -1,25 +1,25 @@
-import {HotelType} from "backend/src/model/hotelModel";
 import {BiChild} from "react-icons/bi";
 import {FaBed, FaBuilding, FaMoneyBill1Wave, FaStar} from "react-icons/fa6";
 import {MdFreeBreakfast, MdLocationOn, MdMan} from "react-icons/md";
 import {formatCurrency} from "../../utils/helper";
 import {Link} from "react-router-dom";
+import {HotelType} from "backend/src/shared/model.types";
 
 export default function MyHotelList({hotelData}: {hotelData: HotelType[]}) {
   return (
-    <div className="flex flex-col max-w-7xl gap-5">
+    <div className="flex flex-col max-w-6xl gap-5">
       {hotelData.map((hotel) => (
         <div
           key={hotel._id}
           className="flex border border-blue-300 rounded-lg  gap-5 shadow-lg drop-shadow-lg shadow-slate-400"
         >
-          <div className="min-w-32 sm:min-w-60">
+          <div className="min-w-28 md:min-w-48">
             <img
               src={hotel.imageUrls[0]}
-              className="object-fill  md:h-60 rounded-l-lg min-h-full"
+              className="object-fill md:h-60 rounded-l-lg min-h-full max-w-36 md:max-w-56"
             />
           </div>
-          <div className="md:p-1 gap-y-1 ">
+          <div className="flex-1 md:p-1 gap-y-1 ">
             <section>
               <div className="flex justify-between">
                 <h1 className="text-2xl text-blue-600 font-extrabold line-clamp-1 capitalize">
@@ -89,6 +89,9 @@ export default function MyHotelList({hotelData}: {hotelData: HotelType[]}) {
                 <FaMoneyBill1Wave className="text-green-700" />
                 <span className="font-semibold md:text-xl">
                   {formatCurrency(hotel.pricePerNight)}
+                  <span className="text-sm italic text-gray-600">
+                    /per night
+                  </span>
                 </span>
               </p>
             </section>
