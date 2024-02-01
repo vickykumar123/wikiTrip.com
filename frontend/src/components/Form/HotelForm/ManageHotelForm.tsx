@@ -5,9 +5,9 @@ import HotelFacilites from "./HotelFacilites";
 import HotelGuests from "./HotelGuests";
 import HotelImage from "./HotelImage";
 import HotelBreakfast from "./HotelBreakfast";
-import {HotelType} from "backend/src/shared/model.types";
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import {HotelType} from "backend/src/shared/types";
 
 export type HotelFormData = {
   hotelName: string;
@@ -94,7 +94,7 @@ export default function ManageHotelForm({onSave, isLoading, hotel}: Props) {
         <HotelImage />
         <span className="flex justify-end">
           <button
-            type="submit"
+            // type="submit"
             disabled={isLoading}
             className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl disabled:bg-gray-500 rounded-md w-full sm:w-60 ring-blue-700 ring-offset-2 ring disabled:opacity-55"
           >

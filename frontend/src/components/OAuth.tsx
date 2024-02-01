@@ -20,6 +20,7 @@ export default function OAuth({disabled}: {disabled: boolean}) {
       console.log(result);
       const res = await fetch(`${API_URL}/api/v1/auth/google`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

@@ -104,11 +104,13 @@ export const google = async (
     if (user) {
       //if user exist signIn directly
 
-      createJWTandCookie(res, user._id);
+      const token = createJWTandCookie(res, user._id);
+      // req.user = user;
       user.password = undefined;
       res.status(200).json({
         status: "success",
         user,
+        token,
       });
     } else {
       //if user donot exist generate the password and create the user in database
@@ -129,11 +131,13 @@ export const google = async (
       });
       console.log(newUser);
       await newUser.save();
-      createJWTandCookie(res, newUser._id);
+      const token = createJWTandCookie(res, newUser._id);
+      // req.user = newUser;
       newUser.password = undefined;
       res.status(200).json({
         status: "success",
         user: newUser,
+        token,
       });
     }
   } catch (err) {

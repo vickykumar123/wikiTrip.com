@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
-import {UserType} from "../shared/model.types";
+import {UserType} from "../shared/types";
 
 const userSchema = new mongoose.Schema(
   {

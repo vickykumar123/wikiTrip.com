@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {appError} from "../helpers/appError";
 import Hotel from "../model/hotelModel";
-import {HotelType} from "../shared/model.types";
+import {HotelType} from "../shared/types";
 
 export async function createHotel(
   req: Request,
@@ -79,11 +79,10 @@ export async function updateHotel(
       {new: true}
     );
 
-    if (!hotel) return next(appError(404, "Hotel not found"));
-
     if (JSON.stringify(req.user._id) !== JSON.stringify(hotel!.user._id)) {
       return next(appError(401, "You are not authorized to edit this hotel"));
     }
+    if (!hotel) return next(appError(404, "Hotel not found"));
 
     const imagesFile = req.files as Express.Multer.File[];
     const imageURLs = imagesFile.map((image) => image.location);

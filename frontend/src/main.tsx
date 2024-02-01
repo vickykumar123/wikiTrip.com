@@ -8,6 +8,7 @@ import {persistor, store} from "./store.ts";
 import {PersistGate} from "redux-persist/integration/react";
 
 import {AppContextProvider} from "./context/AppContext.tsx";
+import {SearchContextProvider} from "./context/SearchContext.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,7 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <AppContextProvider>
-            <App />
+            <SearchContextProvider>
+              <App />
+            </SearchContextProvider>
           </AppContextProvider>
         </PersistGate>
       </Provider>

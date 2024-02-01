@@ -1,8 +1,8 @@
-import {HotelType} from "backend/src/shared/model.types";
+import {HotelType} from "backend/src/shared/types";
 import {API_URL} from "../contants/contant";
 
 export async function addMyHotel(hotelFormData: FormData) {
-  const response = await fetch(`${API_URL}/api/v1/hotel/create-hotel`, {
+  const response = await fetch(`${API_URL}/api/v1/my-hotel/create-hotel`, {
     method: "POST",
     credentials: "include",
     body: hotelFormData,
@@ -16,7 +16,7 @@ export async function addMyHotel(hotelFormData: FormData) {
 }
 
 export async function myHotel(): Promise<HotelType[]> {
-  const response = await fetch(`${API_URL}/api/v1/hotel/my-hotel`, {
+  const response = await fetch(`${API_URL}/api/v1/my-hotel/`, {
     credentials: "include",
   });
   const responseBody = await response.json();
@@ -28,7 +28,7 @@ export async function myHotel(): Promise<HotelType[]> {
 }
 
 export async function hotelById(hotelId: string): Promise<HotelType> {
-  const response = await fetch(`${API_URL}/api/v1/hotel/${hotelId}`, {
+  const response = await fetch(`${API_URL}/api/v1/my-hotel/${hotelId}`, {
     credentials: "include",
   });
 
@@ -42,7 +42,7 @@ export async function hotelById(hotelId: string): Promise<HotelType> {
 
 export const updateMyHotelById = async (hotelFormData: FormData) => {
   const response = await fetch(
-    `${API_URL}/api/v1/hotel/${hotelFormData.get("hotelId")}`,
+    `${API_URL}/api/v1/my-hotel/${hotelFormData.get("hotelId")}`,
     {
       method: "PATCH",
       body: hotelFormData,

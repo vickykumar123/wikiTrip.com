@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CreateHotel from "./pages/CreateHotel";
 import MyHotel from "./pages/MyHotel";
 import EditMyHotel from "./pages/EditMyHotel";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/register" element={<Register />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route element={<ProtectedRoute />}>

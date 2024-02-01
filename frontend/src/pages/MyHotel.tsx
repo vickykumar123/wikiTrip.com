@@ -1,7 +1,7 @@
 import {useQuery} from "react-query";
 import {Link} from "react-router-dom";
 import {myHotel} from "../api/hotelApi";
-import MyHotelList from "../components/Hotel/MyHotelList";
+import HotelList from "../components/Hotel/HotelList";
 
 export default function MyHotel() {
   const {data: hotelData, isLoading} = useQuery("myHotels", myHotel, {
@@ -26,7 +26,7 @@ export default function MyHotel() {
         </h2>
       </div>
       {!hotelData && <span>No Hotel found</span>}
-      {hotelData && !isLoading && <MyHotelList hotelData={hotelData!} />}
+      {hotelData && !isLoading && <HotelList hotelData={hotelData!} />}
     </div>
   );
 }

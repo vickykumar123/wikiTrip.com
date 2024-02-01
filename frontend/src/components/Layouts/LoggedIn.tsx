@@ -1,6 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
 import {useAppDispatch} from "../../redux/hooks";
 import {logoutUser} from "../../redux/userSlice";
+import {logout} from "../../api/loginApi";
 
 const NavLinks = [
   {
@@ -17,6 +18,11 @@ export default function LoggedIn({avatar}: {avatar: string}) {
   const dispatch = useAppDispatch();
   const {pathname} = useLocation();
   const convertedPath = pathname.split("-").join(" ").slice(1);
+
+  async function handleLogout() {
+    await logout();
+    dispatch(logoutUser());
+  }
 
   return (
     <>
@@ -42,7 +48,7 @@ export default function LoggedIn({avatar}: {avatar: string}) {
           />
         </Link>
         <button
-          onClick={() => dispatch(logoutUser())}
+          onClick={handleLogout}
           className=" bg-white rounded-md p-1  text-blue-600 px-3 font-semibold hover:opacity-85"
         >
           Sign out

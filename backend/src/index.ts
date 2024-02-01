@@ -9,6 +9,7 @@ import authRouter from "./routes/authRoute";
 import path from "path";
 import uploadRouter from "./routes/uploadRoute";
 import hotelRouter from "./routes/hotelRoute";
+import searchRouter from "./routes/searchRoute";
 
 // const __dirname = path.resolve();
 
@@ -35,7 +36,8 @@ app.use(express.static(path.join(process.cwd(), "../frontend/dist")));
 //Routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/hotel", hotelRouter);
+app.use("/api/v1/my-hotel", hotelRouter);
+app.use("/api/v1/hotel", searchRouter);
 app.use("/api/v1/upload", uploadRouter);
 
 //This should be after all api routes

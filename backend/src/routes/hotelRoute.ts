@@ -16,7 +16,7 @@ hotelRouter.post(
   upload.array("images", 6),
   createHotel
 );
-hotelRouter.get("/my-hotel", protect, myHotel);
+hotelRouter.get("/", protect, myHotel);
 hotelRouter.get("/:hotelId", protect, hotelById);
 hotelRouter.patch("/:hotelId", protect, upload.array("images", 6), updateHotel);
 

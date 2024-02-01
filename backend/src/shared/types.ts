@@ -27,3 +27,12 @@ export interface UserType {
   lastName: string;
   role?: string;
 }
+
+export interface HotelSearchResponse {
+  hotels: HotelType[];
+  pagination: {
+    totalDocument: number;
+    page: number;
+    pages: number;
+  };
+}
