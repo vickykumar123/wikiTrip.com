@@ -3,7 +3,7 @@ import Logo from "../components/Logo";
 import {EyeIcon, EyeSlashIcon} from "@heroicons/react/24/solid";
 import {useState} from "react";
 import {useMutation} from "react-query";
-import {loginApi} from "../api/loginApi";
+import {loginApi} from "../api/loginAndLogoutApi";
 import {useAppContext} from "../context/AppContext";
 import {useAppDispatch} from "../redux/hooks";
 import {signInUser} from "../redux/userSlice";

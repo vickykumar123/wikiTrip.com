@@ -4,7 +4,7 @@ import {HotelSearchResponse} from "../shared/types";
 
 export async function hotels(req: Request, res: Response, next: NextFunction) {
   try {
-    const pageSize = 6;
+    const pageSize = 5;
     const pageNumber = parseInt(
       req.query.page ? req.query.page.toString() : "1"
     );

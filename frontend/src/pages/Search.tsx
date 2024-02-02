@@ -3,6 +3,7 @@ import {useSearchContext} from "../context/SearchContext";
 import {searchApi} from "../api/searchApi";
 import {useState} from "react";
 import HotelList from "../components/Hotel/HotelList";
+import Pagination from "../components/Pagination";
 
 export default function Search() {
   const search = useSearchContext();
@@ -44,6 +45,14 @@ export default function Search() {
         </div>
 
         {hotelData && <HotelList hotelData={hotelData.hotels} search={true} />}
+
+        <div>
+          <Pagination
+            page={hotelData?.pagination.page || 1}
+            pages={hotelData?.pagination.pages || 1}
+            onPageChange={(page) => setPage(page)}
+          />
+        </div>
       </div>
     </div>
   );

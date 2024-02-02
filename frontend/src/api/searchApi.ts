@@ -19,6 +19,7 @@ export async function searchApi(
   queryParams.append("checkOut", searchParams.checkOut || "");
   queryParams.append("adultCount", searchParams.adultCount || "");
   queryParams.append("childCount", searchParams.childCount || "");
+  queryParams.append("page", searchParams.page || "");
 
   const response = await fetch(`${API_URL}/api/v1/hotel/search?${queryParams}`);
   const responseBody = await response.json();

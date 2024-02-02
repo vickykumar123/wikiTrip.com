@@ -1,7 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
 import {useAppDispatch} from "../../redux/hooks";
 import {logoutUser} from "../../redux/userSlice";
-import {logout} from "../../api/loginApi";
+import {logout} from "../../api/loginAndLogoutApi";
 
 const NavLinks = [
   {

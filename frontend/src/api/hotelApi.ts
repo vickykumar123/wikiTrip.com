@@ -10,7 +10,7 @@ export async function addMyHotel(hotelFormData: FormData) {
 
   const responseBody = await response.json();
   if (!response.ok || responseBody.status === "failed") {
-    throw new Error("Unable to create the hotel");
+    throw new Error(responseBody.message);
   }
   return responseBody;
 }
@@ -53,7 +53,7 @@ export const updateMyHotelById = async (hotelFormData: FormData) => {
   const responseBody = await response.json();
 
   if (!response.ok || responseBody.status === "failed") {
-    throw new Error("Failed to update Hotel");
+    throw new Error(responseBody.message);
   }
 
   return responseBody.hotel;
