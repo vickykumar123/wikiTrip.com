@@ -9,6 +9,7 @@ import CreateHotel from "./pages/CreateHotel";
 import MyHotel from "./pages/MyHotel";
 import EditMyHotel from "./pages/EditMyHotel";
 import Search from "./pages/Search";
+import HotelDetail from "./pages/HotelDetail";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/detail/:hotelId" element={<HotelDetail />} />
               <Route path="/register" element={<Register />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route element={<ProtectedRoute />}>

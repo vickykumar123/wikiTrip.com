@@ -8,8 +8,8 @@ import userRouter from "./routes/userRoute";
 import authRouter from "./routes/authRoute";
 import path from "path";
 import uploadRouter from "./routes/uploadRoute";
-import hotelRouter from "./routes/hotelRoute";
-import searchRouter from "./routes/searchRoute";
+import hotelRouter from "./routes/myHotelRoute";
+import searchRouter from "./routes/searchHotelRoute";
 
 // const __dirname = path.resolve();
 

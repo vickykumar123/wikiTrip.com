@@ -1,4 +1,4 @@
-import {HotelSearchResponse} from "backend/src/shared/types";
+import {HotelSearchResponse, HotelType} from "backend/src/shared/types";
 import {API_URL} from "../contants/contant";
 
 export type SearchParam = {
@@ -41,4 +41,14 @@ export async function searchApi(
     throw new Error("Something went wrong");
   }
   return responseBody.response;
+}
+
+export async function fetchHotelById(hotelId: string): Promise<HotelType> {
+  const response = await fetch(`${API_URL}/api/v1/hotel/${hotelId}`);
+  const responseBody = await response.json();
+  console.log(responseBody);
+  if (!response.ok || responseBody.status === "failed") {
+    throw new Error("Something went wrong");
+  }
+  return responseBody.hotel;
 }

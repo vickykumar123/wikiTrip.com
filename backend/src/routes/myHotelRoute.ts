@@ -6,7 +6,7 @@ import {
   hotelById,
   myHotel,
   updateHotel,
-} from "../controllers/hotelController";
+} from "../controllers/myHotelController";
 
 const hotelRouter = express.Router();
 
