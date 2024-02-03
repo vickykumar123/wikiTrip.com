@@ -1,4 +1,4 @@
-import {FormEvent, useState} from "react";
+import {FormEvent, memo, useState} from "react";
 import {MdOutlineTravelExplore} from "react-icons/md";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,7 +6,7 @@ import {useSearchContext} from "../../context/SearchContext";
 import {CalendarDaysIcon} from "@heroicons/react/16/solid";
 import {useNavigate} from "react-router-dom";
 
-export default function SearchBar() {
+const SearchBar = memo(() => {
   const search = useSearchContext();
   const navigate = useNavigate();
 
@@ -19,7 +19,6 @@ export default function SearchBar() {
   const minDate = new Date();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1); // 1year limit
-
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     search.saveSearchValues(
@@ -93,7 +92,7 @@ export default function SearchBar() {
           endDate={checkOut}
           minDate={minDate}
           maxDate={maxDate}
-          placeholderText="Check-in Date"
+          placeholderText="Check-out Date"
           className="w-[120px] bg-white md:min-w-full  focus:outline-none"
         />
       </div>
@@ -101,10 +100,9 @@ export default function SearchBar() {
         <button className="w-full bg-blue-600 text-white h-full p-2 font-bold text-lg hover:bg-blue-500 rounded-md">
           Search
         </button>
-        <button className="w-full bg-red-600 text-white h-full p-2 font-bold text-xl hover:bg-red-500 rounded-md">
-          Clear
-        </button>
       </div>
     </form>
   );
-}
+});
+
+export default SearchBar;

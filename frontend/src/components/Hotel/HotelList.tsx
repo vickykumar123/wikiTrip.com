@@ -1,10 +1,11 @@
 import {BiChild} from "react-icons/bi";
-import {FaBed, FaBuilding, FaMoneyBill1Wave, FaStar} from "react-icons/fa6";
+import {FaBed, FaBuilding, FaStar} from "react-icons/fa6";
 import {MdFreeBreakfast, MdLocationOn, MdMan} from "react-icons/md";
 import {formatCurrency} from "../../utils/helper";
 import {Link} from "react-router-dom";
 import {HotelType} from "backend/src/shared/types";
 import {AiFillStar} from "react-icons/ai";
+import {useSearchContext} from "../../context/SearchContext";
 
 export default function HotelList({
   hotelData,
@@ -13,6 +14,9 @@ export default function HotelList({
   hotelData: HotelType[];
   search?: boolean;
 }) {
+  const {checkIn, checkOut} = useSearchContext();
+  const totalLivingDays = Math.abs(checkIn.getDate() - checkOut.getDate()) + 1;
+
   return (
     <div className="flex flex-col max-w-6xl gap-5">
       {hotelData.map((hotel) => (
@@ -125,15 +129,19 @@ export default function HotelList({
                   </span>
                 </div>
               </div>
-              <p className="flex items-center gap-2">
-                <FaMoneyBill1Wave className="text-green-700" />
-                <span className="font-semibold md:text-xl">
-                  {formatCurrency(hotel.pricePerNight)}
-                  <span className="text-sm italic text-gray-600">
-                    /per night
-                  </span>
-                </span>
-              </p>
+              <div className="flex items-center">
+                <div className="font-semibold text-sm">
+                  <p className="flex flex-col text-2xl">
+                    💸
+                    {search &&
+                      formatCurrency(hotel.pricePerNight * totalLivingDays)}
+                    {!search && formatCurrency(hotel.pricePerNight)}
+                    <span className="text-sm text-center italic text-gray-600">
+                      {search ? `for ${totalLivingDays} night ` : "/per night"}
+                    </span>
+                  </p>
+                </div>
+              </div>
             </section>
             <span className="flex justify-end p-3">
               <Link
