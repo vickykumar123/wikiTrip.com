@@ -2,6 +2,8 @@ import {Link, useLocation} from "react-router-dom";
 import {useAppDispatch} from "../../redux/hooks";
 import {logoutUser} from "../../redux/userSlice";
 import {logout} from "../../api/loginAndLogoutApi";
+import {useMutation, useQueryClient} from "react-query";
+import {useAppContext} from "../../context/AppContext";
 
 const NavLinks = [
   {
@@ -15,14 +17,30 @@ const NavLinks = [
 ];
 
 export default function LoggedIn({avatar}: {avatar: string}) {
+  const queryClient = useQueryClient();
+  const {showToast} = useAppContext();
+
   const dispatch = useAppDispatch();
   const {pathname} = useLocation();
   const convertedPath = pathname.split("-").join(" ").slice(1);
 
-  async function handleLogout() {
-    await logout();
+  const mutation = useMutation(logout, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries("validateToken");
+      showToast({message: "Signed Out!", type: "SUCCESS"});
+    },
+    onError: (error: Error) => {
+      showToast({message: error.message, type: "ERROR"});
+    },
+  });
+
+  const isLoading = mutation.isLoading;
+  const handleLogout = () => {
+    mutation.mutate();
     dispatch(logoutUser());
-  }
+  };
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>

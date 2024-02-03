@@ -94,6 +94,10 @@ export function logout(req: Request, res: Response) {
   });
 }
 
+export function validateToken(req: Request, res: Response) {
+  res.status(200).send({status: "success", user: req.user});
+}
+
 export const google = async (
   req: Request,
   res: Response,
