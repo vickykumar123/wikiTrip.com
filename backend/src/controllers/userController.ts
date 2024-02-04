@@ -19,3 +19,22 @@ export async function AllUsers(
     next(err);
   }
 }
+
+export async function currentUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const user = req.user;
+    if (!user) {
+      return next(appError(403, "No user found"));
+    }
+    res.status(200).json({
+      message: "success",
+      user,
+    });
+  } catch (err) {
+    next(err);
+  }
+}

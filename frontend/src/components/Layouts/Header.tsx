@@ -16,7 +16,7 @@ export default function Header() {
         </span>
         <div className="flex items-center space-x-4">
           {!isLoggedIn && !user && <NotLoggedIn />}
-          {user && <LoggedIn avatar={user.avatar!} />}
+          {user && <LoggedIn avatar={user!.avatar!} />}
           <DarkModeToggle />
         </div>
       </div>

@@ -37,14 +37,13 @@ export default function GuestInfoForm({hotelId, pricePerNight}: Props) {
     },
   });
 
-  const totalLivingDays =
-    Math.abs(search.checkIn.getDate() - search.checkOut.getDate()) + 1;
-
   const checkIn = watch("checkIn");
   const checkOut = watch("checkOut");
   const minDate = new Date();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
+
+  const totalLivingDays = Math.abs(checkIn.getDate() - checkOut.getDate()) + 1;
 
   function onSignInClick(data: GuestInfoFormData) {
     search.saveSearchValues(
