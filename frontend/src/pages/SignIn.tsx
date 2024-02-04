@@ -7,7 +7,7 @@ import {loginApi} from "../api/loginAndLogoutApi";
 import {useAppContext} from "../context/AppContext";
 import {useAppDispatch} from "../redux/hooks";
 import {signInUser} from "../redux/userSlice";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router-dom";
 import OAuth from "../components/OAuth";
 
 export interface SignInInputs {
@@ -18,6 +18,7 @@ export default function SignIn() {
   const {showToast} = useAppContext();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isTypePassword, setIsTypePassword] = useState("password");
   const {
     register,
@@ -35,7 +36,7 @@ export default function SignIn() {
         avatar: user.avatar,
       };
       dispatch(signInUser(userObj));
-      navigate("/");
+      navigate(location.state?.from?.pathname || "/");
     },
     onError: (error: Error) => {
       showToast({message: `⛔ ${error}`, type: "ERROR"});

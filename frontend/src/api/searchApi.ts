@@ -46,7 +46,6 @@ export async function searchApi(
 export async function fetchHotelById(hotelId: string): Promise<HotelType> {
   const response = await fetch(`${API_URL}/api/v1/hotel/${hotelId}`);
   const responseBody = await response.json();
-  console.log(responseBody);
   if (!response.ok || responseBody.status === "failed") {
     throw new Error("Something went wrong");
   }

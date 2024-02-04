@@ -5,6 +5,7 @@ import {AiFillStar} from "react-icons/ai";
 import {MdLocationOn} from "react-icons/md";
 import {useState} from "react";
 import {BuildingOffice2Icon} from "@heroicons/react/24/solid";
+import GuestInfoForm from "../components/Form/GuestInfoForm/GuestInfoForm";
 
 export default function HotelDetail() {
   const {hotelId} = useParams();
@@ -57,7 +58,7 @@ export default function HotelDetail() {
                 <img
                   src={displayImage || hotel.imageUrls[0]}
                   alt="thumbPic"
-                  className="w-full h-full object-fill md:object-cover object-center rounded-md transition-all duration-200"
+                  className={`w-full h-full object-fill md:object-cover object-center rounded-md transition-all duration-200 `}
                 />
               </div>
               <div className="flex md:flex-col gap-2">
@@ -82,15 +83,23 @@ export default function HotelDetail() {
               <div className="whitespace-pre-line text-sm">
                 {hotel.description}
               </div>
-              <div className="h-fit">{/* TODO GuestInfo */}</div>
+              <div className="h-fit ml-3">
+                <GuestInfoForm
+                  pricePerNight={hotel.pricePerNight}
+                  hotelId={hotel._id}
+                />
+              </div>
             </div>
           </section>
 
           <section className="space-y-2">
             <h3 className="text-lg font-bold">Most popular facilities</h3>
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
               {hotel.facilities.map((facility) => (
-                <div className=" rounded-md bg-green-500 text-white font-semibold shadow-lg text-center p-3">
+                <div
+                  key={facility}
+                  className=" rounded-md bg-green-500 text-white font-semibold shadow-lg text-center p-3"
+                >
                   {facility}
                 </div>
               ))}

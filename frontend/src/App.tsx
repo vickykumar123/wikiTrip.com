@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./components/Layouts/Layout";
 import {DarkModeProvider} from "./context/DarkModeContext";
 import Home from "./pages/Home";
@@ -10,18 +10,24 @@ import MyHotel from "./pages/MyHotel";
 import EditMyHotel from "./pages/EditMyHotel";
 import Search from "./pages/Search";
 import HotelDetail from "./pages/HotelDetail";
+import {useAppSelector} from "./redux/hooks";
+import NotFound from "./pages/NotFound";
 
 function App() {
+  const {user} = useAppSelector((state) => state.user);
   return (
     <>
       <DarkModeProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<Home />} />
+              <Route index path="/" element={<Home />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/detail/:hotelId" element={<HotelDetail />} />
-              <Route path="/register" element={<Register />} />
+              <Route path="/search/detail/:hotelId" element={<HotelDetail />} />
+              <Route
+                path="/register"
+                element={!user ? <Register /> : <Navigate to="/" />}
+              />
               <Route path="/sign-in" element={<SignIn />} />
               <Route element={<ProtectedRoute />}>
                 <Route path="/my-hotels" element={<MyHotel />} />
@@ -34,6 +40,7 @@ function App() {
                   element={<EditMyHotel />}
                 />
               </Route>
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>

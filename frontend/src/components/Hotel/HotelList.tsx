@@ -41,7 +41,7 @@ export default function HotelList({
                   <Link
                     to={
                       search
-                        ? `/detail/${hotel._id}`
+                        ? `/search/detail/${hotel._id}`
                         : `/my-hotels/edit-hotel/${hotel._id}`
                     }
                     className="sm:text-2xl line-clamp-2"
@@ -147,7 +147,7 @@ export default function HotelList({
               <Link
                 to={
                   search
-                    ? `/detail/${hotel._id}`
+                    ? `/search/detail/${hotel._id}`
                     : `/my-hotels/edit-hotel/${hotel._id}`
                 }
                 className="flex bg-blue-600 text-white text-base sm:text-lg font-bold p-1 hover:bg-blue-500 rounded-md"
