@@ -92,7 +92,6 @@ export async function confirmBooking(
       }
     );
 
-    console.log(hotel);
     if (!hotel) {
       return res.status(400).json({message: "hotel not found"});
     }

@@ -1,52 +1,38 @@
-import {GoogleAuthProvider, getAuth, signInWithPopup} from "firebase/auth";
-import {app} from "../firebaseAuth";
 import {useAppDispatch} from "../redux/hooks";
 import {signInUser} from "../redux/userSlice";
-import {useNavigate} from "react-router";
+import {useNavigate, useLocation} from "react-router-dom";
 import {useAppContext} from "../context/AppContext";
-import {API_URL} from "../contants/contant";
+import {useMutation} from "react-query";
+import {oauthLogin} from "../api/loginAndLogoutApi";
 
 export default function OAuth({disabled}: {disabled: boolean}) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {showToast} = useAppContext();
+  const location = useLocation();
 
-  async function handleGoogleClick() {
-    try {
-      const provider = new GoogleAuthProvider();
-      const auth = getAuth(app);
-
-      const result = await signInWithPopup(auth, provider);
-      console.log(result);
-      const res = await fetch(`${API_URL}/api/v1/auth/google`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: result.user.displayName,
-          email: result.user.email,
-          avatar: result.user.photoURL,
-        }),
-      });
-      const data = await res.json();
-
+  const {mutate: data} = useMutation(oauthLogin, {
+    onSuccess: (data) => {
+      showToast({message: "Loggedin Successfully!", type: "SUCCESS"});
       const user = data.user;
-      if (data.status === "success") {
-        const userObj = {
-          name: user.fullName,
-          email: user.email,
-          avatar: user.avatar,
-        };
-        dispatch(signInUser(userObj));
-        showToast({message: "Registration Successfully!", type: "SUCCESS"});
-        navigate("/");
-      }
-    } catch (err) {
-      console.log(err);
-    }
+      const userObj = {
+        name: user.fullName,
+        email: user.email,
+        avatar: user.avatar,
+      };
+      dispatch(signInUser(userObj));
+      navigate(location.state?.from?.pathname || "/");
+      window.location.reload();
+    },
+    onError: (error: Error) => {
+      showToast({message: `⛔ ${error}`, type: "ERROR"});
+    },
+  });
+
+  function handleGoogleClick() {
+    data();
   }
+
   return (
     <button
       type="button"

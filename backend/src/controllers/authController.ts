@@ -94,8 +94,12 @@ export function logout(req: Request, res: Response) {
   });
 }
 
-export function validateToken(req: Request, res: Response) {
-  res.status(200).send({status: "success", user: req.user});
+export function validateToken(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.status(200).send({status: "success", user: req.user});
+  } catch (err) {
+    next(err);
+  }
 }
 
 export const google = async (
@@ -107,9 +111,8 @@ export const google = async (
     const user = await User.findOne({email: req.body.email});
     if (user) {
       //if user exist signIn directly
-
+      req.user = user;
       const token = createJWTandCookie(res, user._id);
-      // req.user = user;
       user.password = undefined;
       res.status(200).json({
         status: "success",
@@ -135,8 +138,8 @@ export const google = async (
       });
       console.log(newUser);
       await newUser.save();
+      req.user = newUser;
       const token = createJWTandCookie(res, newUser._id);
-      // req.user = newUser;
       newUser.password = undefined;
       res.status(200).json({
         status: "success",
