@@ -6,11 +6,15 @@ import {useParams} from "react-router-dom";
 import {fetchHotelById} from "../api/searchApi";
 import {useEffect, useState} from "react";
 import BookingDetailsSummary from "../components/BookingDetailsSummary";
+import {createPaymentIntent} from "../api/bookingApi";
+import {Elements} from "@stripe/react-stripe-js";
+import {useAppContext} from "../context/AppContext";
 
 export default function Booking() {
+  const {stripePromise} = useAppContext();
   const search = useSearchContext();
   const {hotelId} = useParams();
-  const [numberOfNights, setNumberOfNights] = useState<number>(1);
+  const [numberOfNights, setNumberOfNights] = useState<number>(0);
 
   useEffect(() => {
     if (search.checkIn && search.checkOut) {
@@ -21,7 +25,15 @@ export default function Booking() {
     }
   }, [search.checkIn, search.checkOut]);
 
-  const {data: hotel} = useQuery(
+  const {data: paymentIntentData, isLoading: paymentLoading} = useQuery(
+    "createPaymentIntent",
+    () => createPaymentIntent(hotelId as string, numberOfNights.toString()),
+    {
+      enabled: !!hotelId && numberOfNights > 0, //this will retry only these condition mets
+    }
+  );
+
+  const {data: hotel, isLoading: hotelLoading} = useQuery(
     "fetchHotelById",
     () => fetchHotelById(hotelId as string),
     {
@@ -30,7 +42,7 @@ export default function Booking() {
   );
   const {data: user, isLoading} = useQuery("currentUser", currentUserApi);
 
-  if (isLoading) return <div>Loading</div>;
+  if (isLoading || hotelLoading || paymentLoading) return <div>Loading</div>;
   return (
     <div className="grid md:grid-cols-[1fr_2fr] gap-3">
       <BookingDetailsSummary
@@ -41,7 +53,16 @@ export default function Booking() {
         numberOfNights={numberOfNights}
         hotel={hotel!}
       />
-      <BookingForm currentUser={user!} />
+      {paymentIntentData && (
+        <Elements
+          stripe={stripePromise}
+          options={{
+            clientSecret: paymentIntentData.clientSecret,
+          }}
+        >
+          <BookingForm currentUser={user!} paymentIntent={paymentIntentData} />
+        </Elements>
+      )}
     </div>
   );
 }
