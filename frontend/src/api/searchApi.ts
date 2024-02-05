@@ -51,3 +51,12 @@ export async function fetchHotelById(hotelId: string): Promise<HotelType> {
   }
   return responseBody.hotel;
 }
+
+export const fetchAllHotel = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${API_URL}/api/v1/hotel`);
+  const responseBody = await response.json();
+  if (!response.ok || responseBody.status === "failed") {
+    throw new Error("Something went wrong");
+  }
+  return responseBody;
+};

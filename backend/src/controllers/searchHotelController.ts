@@ -74,3 +74,17 @@ export async function hotelDetail(
     next(err);
   }
 }
+
+export async function Allhotels(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const hotels = await Hotel.find().sort("-lastUpdated");
+    res.json(hotels);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({message: "Error fetching hotels"});
+  }
+}
