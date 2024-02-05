@@ -3,7 +3,7 @@ import {StripeCardElement} from "@stripe/stripe-js";
 import {PaymentIntentResponse, UserType} from "backend/src/shared/types";
 import {useForm} from "react-hook-form";
 import {useSearchContext} from "../../context/SearchContext";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useMutation} from "react-query";
 import {createRoomBooking} from "../../api/bookingApi";
 import {useAppContext} from "../../context/AppContext";
@@ -35,16 +35,7 @@ export default function BookingForm({
   const search = useSearchContext();
   const {hotelId} = useParams();
   const {showToast} = useAppContext();
-
-  const {mutate: bookRoom, isLoading} = useMutation(createRoomBooking, {
-    onSuccess: () => {
-      showToast({message: "Booking Saved!", type: "SUCCESS"});
-    },
-    onError: () => {
-      showToast({message: "Error saving booking", type: "ERROR"});
-    },
-  });
-
+  const navigate = useNavigate();
   const {handleSubmit, register} = useForm<BookingFormData>({
     defaultValues: {
       firstName: currentUser.firstName,
@@ -60,6 +51,16 @@ export default function BookingForm({
     },
   });
 
+  const {mutate: bookRoom, isLoading} = useMutation(createRoomBooking, {
+    onSuccess: () => {
+      showToast({message: "Booking Saved!", type: "SUCCESS"});
+      navigate("/my-bookings", {replace: true});
+    },
+    onError: () => {
+      showToast({message: "Error saving booking", type: "ERROR"});
+    },
+  });
+
   const onSubmit = async (formData: BookingFormData) => {
     if (!stripe || !elements) {
       return;
@@ -70,7 +71,6 @@ export default function BookingForm({
         card: elements.getElement(CardElement) as StripeCardElement,
       },
     });
-    console.log(result);
 
     if (result.paymentIntent?.status === "succeeded") {
       bookRoom({...formData, paymentIntentId: result.paymentIntent.id}); // other data will come from defaultValues or from formSubmitation

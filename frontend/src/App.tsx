@@ -13,6 +13,7 @@ import HotelDetail from "./pages/HotelDetail";
 import {useAppSelector} from "./redux/hooks";
 import NotFound from "./pages/NotFound";
 import Booking from "./pages/Booking";
+import MyBookings from "./pages/MyBookings";
 
 function App() {
   const {user} = useAppSelector((state) => state.user);
@@ -32,6 +33,7 @@ function App() {
               <Route path="/sign-in" element={<SignIn />} />
               <Route element={<ProtectedRoute />}>
                 <Route path="/my-hotels" element={<MyHotel />} />
+                <Route path="/my-bookings" element={<MyBookings />} />
                 <Route path="/hotel/:hotelId/booking" element={<Booking />} />
                 <Route
                   path="/my-hotels/create-hotel"

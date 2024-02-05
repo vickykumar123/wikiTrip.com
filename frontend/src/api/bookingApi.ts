@@ -1,4 +1,4 @@
-import {PaymentIntentResponse} from "backend/src/shared/types";
+import {HotelType, PaymentIntentResponse} from "backend/src/shared/types";
 import {API_URL} from "../contants/contant";
 import {BookingFormData} from "../components/Form/BookingForm";
 
@@ -45,4 +45,18 @@ export async function createRoomBooking(formData: BookingFormData) {
   }
 
   return responseBody.message;
+}
+
+export async function fetchMyBooking(): Promise<HotelType[]> {
+  const response = await fetch(`${API_URL}/api/v1/my-booking`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok || responseBody.status === "failed") {
+    throw new Error("Unable to fetch booking details");
+  }
+
+  return responseBody.results;
 }

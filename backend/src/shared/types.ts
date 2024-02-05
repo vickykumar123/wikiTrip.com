@@ -49,6 +49,7 @@ export type BookingType = {
   checkIn: Date;
   checkOut: Date;
   totalCost: number;
+  paymentIntentId?: string;
 };
 
 export type PaymentIntentResponse = {

@@ -11,6 +11,7 @@ import uploadRouter from "./routes/uploadRoute";
 import hotelRouter from "./routes/myHotelRoute";
 import searchRouter from "./routes/searchHotelRoute";
 import bookingRouter from "./routes/bookingRoute";
+import myBookingRouter from "./routes/myBookingRoute";
 
 // const __dirname = path.resolve();
 
@@ -41,6 +42,7 @@ app.use("/api/v1/my-hotel", hotelRouter);
 app.use("/api/v1/hotel", searchRouter);
 app.use("/api/v1/upload", uploadRouter);
 app.use("/api/v1/booking", bookingRouter);
+app.use("/api/v1/my-booking", myBookingRouter);
 
 //This should be after all api routes
 //This will solve manual refresh issue

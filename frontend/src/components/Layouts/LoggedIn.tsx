@@ -7,7 +7,7 @@ import {useAppContext} from "../../context/AppContext";
 
 const NavLinks = [
   {
-    link: "/my-booking",
+    link: "/my-bookings",
     label: "My Bookings",
   },
   {

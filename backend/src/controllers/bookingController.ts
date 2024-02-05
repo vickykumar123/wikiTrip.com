@@ -82,15 +82,11 @@ export async function confirmBooking(
 
     const newBooking: BookingType = {
       ...req.body,
-      userId: req.user._id,
+      userId: req.user._id.toString(),
     };
 
-    const hotel = await Hotel.findOneAndUpdate(
-      {_id: req.params.hotelId},
-      {
-        $push: {bookings: newBooking},
-      }
-    );
+    const hotel = await Hotel.findById({_id: req.params.hotelId});
+    hotel?.bookings.push(newBooking);
 
     if (!hotel) {
       return res.status(400).json({message: "hotel not found"});
