@@ -69,6 +69,12 @@ export default function MyBookings() {
           </div>
         </div>
       ))}
+      <Link
+        to="/search"
+        className="bg-blue-900 p-3 text-white rounded-md shadow-md shadow-slate-500 font-medium hover:opacity-85"
+      >
+        Start Booking Now
+      </Link>
     </div>
   );
 }
