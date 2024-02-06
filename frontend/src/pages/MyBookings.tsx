@@ -9,7 +9,17 @@ export default function MyBookings() {
   if (isLoading) return <Loader />;
 
   if (!hotels || hotels.length === 0) {
-    return <span>No bookings found</span>;
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <span>No bookings found</span>
+        <Link
+          to="/search"
+          className="bg-blue-900 p-3 text-white rounded-md shadow-md shadow-slate-500 font-medium hover:opacity-85"
+        >
+          Start Booking Now
+        </Link>
+      </div>
+    );
   }
   return (
     <div className="space-y-5">
