@@ -85,7 +85,7 @@ export default function Profile() {
               <input
                 className="border rounded text-gray-800 bg-gray-200 cursor-not-allowed   w-full py-1 px-2 font-medium focus:outline-none focus:ring focus:ring-blue-300 focus:ring-offset-1"
                 disabled={true}
-                value={user?.email}
+                defaultValue={user?.email}
                 readOnly
                 {...register("email", {required: "This field is required"})}
               />
@@ -98,7 +98,7 @@ export default function Profile() {
                 First Name
                 <input
                   className="border rounded w-full py-1 px-2 font-normal focus:outline-none focus:ring focus:ring-blue-300 focus:ring-offset-1"
-                  value={user?.firstName}
+                  defaultValue={user?.firstName}
                   {...register("firstName", {
                     required: "This field is required",
                   })}
@@ -111,7 +111,7 @@ export default function Profile() {
                 Last Name
                 <input
                   className="border rounded w-full py-1 px-2 font-normal focus:outline-none focus:ring focus:ring-blue-300 focus:ring-offset-1"
-                  value={user?.lastName}
+                  defaultValue={user?.lastName}
                   {...register("lastName", {
                     required: "This field is required",
                   })}
