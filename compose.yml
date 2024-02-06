@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  # MongoDB Service
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  # Node.js Service
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: nodejs
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+
+  # React.js Service
+  reactjs:
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+    container_name: reactjs
+    ports:
+      - "80:80"
+    depends_on:
+      - nodejs
+    env_file:
+      - .env
+
+volumes:
+  mongodb_data:
