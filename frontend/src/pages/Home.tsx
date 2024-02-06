@@ -2,12 +2,17 @@ import {useQuery} from "react-query";
 import LatestDestinationCard from "../components/LastestDestinationCard";
 import {fetchAllHotel} from "../api/searchApi";
 import {Link} from "react-router-dom";
+import Loader from "../components/ui/Loader";
 
 const Home = () => {
-  const {data: hotels} = useQuery("fetchQuery", () => fetchAllHotel());
+  const {data: hotels, isLoading} = useQuery("fetchQuery", () =>
+    fetchAllHotel()
+  );
 
   const topRowHotels = hotels?.slice(0, 2) || [];
   const bottomRowHotels = hotels?.slice(2) || [];
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="space-y-3">

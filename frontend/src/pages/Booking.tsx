@@ -9,6 +9,7 @@ import BookingDetailsSummary from "../components/BookingDetailsSummary";
 import {createPaymentIntent} from "../api/bookingApi";
 import {Elements} from "@stripe/react-stripe-js";
 import {useAppContext} from "../context/AppContext";
+import Loader from "../components/ui/Loader";
 
 export default function Booking() {
   const {stripePromise} = useAppContext();
@@ -42,7 +43,7 @@ export default function Booking() {
   );
   const {data: user, isLoading} = useQuery("currentUser", currentUserApi);
 
-  if (isLoading || hotelLoading || paymentLoading) return <div>Loading</div>;
+  if (isLoading || hotelLoading || paymentLoading) return <Loader />;
   return (
     <div className="grid md:grid-cols-[1fr_2fr] gap-3">
       <BookingDetailsSummary

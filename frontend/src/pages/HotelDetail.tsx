@@ -6,6 +6,7 @@ import {MdLocationOn} from "react-icons/md";
 import {useState} from "react";
 import {BuildingOffice2Icon} from "@heroicons/react/24/solid";
 import GuestInfoForm from "../components/Form/GuestInfoForm/GuestInfoForm";
+import Loader from "../components/ui/Loader";
 
 export default function HotelDetail() {
   const {hotelId} = useParams();
@@ -19,7 +20,7 @@ export default function HotelDetail() {
   );
   const navigate = useNavigate();
 
-  if (isLoading) return <div>Loading</div>;
+  if (isLoading) return <Loader />;
   return (
     <div>
       <p

@@ -152,7 +152,7 @@ export default function HotelList({
                 }
                 className="flex bg-blue-600 text-white text-base sm:text-lg font-bold p-1 hover:bg-blue-500 rounded-md"
               >
-                View Details
+                {search ? "View Details" : "Update Hotel"}
               </Link>
             </span>
           </div>

@@ -1,11 +1,12 @@
 import {useQuery} from "react-query";
 import {fetchMyBooking} from "../api/bookingApi";
 import {Link} from "react-router-dom";
+import Loader from "../components/ui/Loader";
 
 export default function MyBookings() {
   const {data: hotels, isLoading} = useQuery("fetchMyBookings", fetchMyBooking);
 
-  if (isLoading) return <div>Loading..</div>;
+  if (isLoading) return <Loader />;
 
   if (!hotels || hotels.length === 0) {
     return <span>No bookings found</span>;

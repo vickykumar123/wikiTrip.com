@@ -9,6 +9,7 @@ import HotelTypesFilter from "../components/Search/SearchFilters/HotelTypesFilte
 import {handleChange} from "../utils/filterOnChange";
 import HotelFacilitiesFilter from "../components/Search/SearchFilters/HotelFacilitiesFilter";
 import PriceFilter from "../components/Search/SearchFilters/PriceFilter";
+import Loader from "../components/ui/Loader";
 
 export default function Search() {
   const search = useSearchContext();
@@ -108,7 +109,7 @@ export default function Search() {
             <option value="lastest">Latest Hotel</option>
           </select>
         </div>
-        {isLoading && <div>Loading....</div>}
+        {isLoading && <Loader />}
         {!isLoading && hotelData && (
           <HotelList hotelData={hotelData.hotels} search={true} />
         )}

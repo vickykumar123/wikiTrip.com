@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {hotelById, updateMyHotelById} from "../api/hotelApi";
 import ManageHotelForm from "../components/Form/HotelForm/ManageHotelForm";
 import {useAppContext} from "../context/AppContext";
+import Loader from "../components/ui/Loader";
 
 export default function EditMyHotel() {
   const {hotelId} = useParams();
@@ -16,6 +17,7 @@ export default function EditMyHotel() {
   const {mutate, isLoading} = useMutation(updateMyHotelById, {
     onSuccess: () => {
       showToast({message: "Hotel Saved!", type: "SUCCESS"});
+      window.location.reload();
     },
     onError: () => {
       showToast({message: "Error Saving Hotel", type: "ERROR"});
@@ -29,7 +31,7 @@ export default function EditMyHotel() {
   const handleSave = (hotelFormData: FormData) => {
     mutate(hotelFormData);
   };
-  if (dataLoading) return <div>Loading...</div>;
+  if (dataLoading) return <Loader />;
 
   if (hotel === null)
     return <div className="text-center font-bold text-2xl">🙅🏻🙅🏻 No data.</div>;

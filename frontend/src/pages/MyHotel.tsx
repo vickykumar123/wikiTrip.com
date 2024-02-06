@@ -2,12 +2,13 @@ import {useQuery} from "react-query";
 import {Link} from "react-router-dom";
 import {myHotel} from "../api/hotelApi";
 import HotelList from "../components/Hotel/HotelList";
+import Loader from "../components/ui/Loader";
 
 export default function MyHotel() {
   const {data: hotelData, isLoading} = useQuery("myHotels", myHotel, {
     onError: () => {},
   });
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loader />;
 
   return (
     <div className="space-y-5">

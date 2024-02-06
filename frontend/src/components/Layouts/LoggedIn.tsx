@@ -4,6 +4,7 @@ import {logoutUser} from "../../redux/userSlice";
 import {logout} from "../../api/loginAndLogoutApi";
 import {useMutation, useQueryClient} from "react-query";
 import {useAppContext} from "../../context/AppContext";
+import Loader from "../ui/Loader";
 
 const NavLinks = [
   {
@@ -40,7 +41,7 @@ export default function LoggedIn({avatar}: {avatar: string}) {
     dispatch(logoutUser());
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loader />;
 
   return (
     <>
