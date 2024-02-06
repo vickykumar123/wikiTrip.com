@@ -38,3 +38,41 @@ export async function currentUser(
     next(err);
   }
 }
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (req.user._id.toString() !== req.body.id.toString())
+      return next(
+        appError(
+          403,
+          "You are not authorized to make changes to others account"
+        )
+      );
+
+    const user = await User.findById(req.user._id.toString());
+    if (!user) return;
+    user.avatar = req.body.avatar || user.avatar;
+    user.firstName = req.body.firstName || user.firstName;
+    user.lastName = req.body.lastName || user.lastName;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+      user.passwordConfirm = req.body.password;
+      await user.save();
+    }
+
+    await user.save({validateBeforeSave: false});
+
+    res.status(201).json({
+      status: "success",
+      message: "User updated successfully..",
+      user,
+    });
+  } catch (err) {
+    next(err);
+  }
+};

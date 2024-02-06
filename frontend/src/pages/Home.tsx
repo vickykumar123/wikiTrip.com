@@ -3,8 +3,9 @@ import LatestDestinationCard from "../components/LastestDestinationCard";
 import {fetchAllHotel} from "../api/searchApi";
 import {Link} from "react-router-dom";
 import Loader from "../components/ui/Loader";
+import {memo} from "react";
 
-const Home = () => {
+const Home = memo(() => {
   const {data: hotels, isLoading} = useQuery("fetchQuery", () =>
     fetchAllHotel()
   );
@@ -21,7 +22,11 @@ const Home = () => {
       <div className="grid gap-4">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
           {topRowHotels.map((hotel) => (
-            <LatestDestinationCard hotel={hotel} latest={true} />
+            <LatestDestinationCard
+              key={hotel._id}
+              hotel={hotel}
+              latest={true}
+            />
           ))}
         </div>
 
@@ -77,12 +82,12 @@ const Home = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {bottomRowHotels.map((hotel) => (
-            <LatestDestinationCard hotel={hotel} />
+            <LatestDestinationCard key={hotel._id} hotel={hotel} />
           ))}
         </div>
       </div>
     </div>
   );
-};
+});
 
 export default Home;
