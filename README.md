@@ -4,6 +4,8 @@
 
 wikiTrip.com is a dynamic travel booking platform inspired by Booking.com, offering a seamless and secure booking experience. Built on the powerful Node.js, Express, MongoDB, and React stack with TypeScript, it ensures high performance and scalability.
 
+Video demo : https://www.linkedin.com/feed/update/urn:li:activity:7160635244876898304/
+
 ## Features
 
 - **Responsive Design**: Highly responsive on both mobile and desktop for a smooth user experience.
